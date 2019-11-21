@@ -1,0 +1,68 @@
+{
+  "name": "app-name",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./app",
+    "start": "node ./app",
+    "migrate": "npx sequelize db:migrate",
+    "prod:start": "NODE_ENV=production pm2 start ./app.js --name app-name",
+    "prod:restart": "pm2 restart app-name",
+    "prod:migrate": "NODE_ENV=production npx sequelize db:migrate",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "debug": "^4.1.1",
+    "dotenv-flow": "^3.1.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "express-swagger-generator": "^1.1.15",
+    "express-validator": "^6.2.0",
+    "generate-password": "^1.4.2",
+    "http-errors": "^1.7.3",
+    "hybrid-crypto-js": "^0.2.2",
+    "jsonwebtoken": "^8.5.1",
+    "mailgun-js": "^0.22.0",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^7.12.1",
+    "rand-token": "^0.4.0",
+    "response-time": "^2.3.2",
+    "sequelize": "^5.19.6"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-config-recommended": "^4.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.2.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
+    "sequelize-cli": "^5.5.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "engines": {
+    "node": ">=10.17.0"
+  }
+}
