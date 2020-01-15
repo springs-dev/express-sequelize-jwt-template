@@ -27,6 +27,7 @@ module.exports = {
     "max-depth": [2, { "max": 3 }],
     "node/exports-style": [2, "module.exports"],
     "node/file-extension-in-import": [2, "never"],
-    "prettier/prettier": ["error", require('./.prettierrc.js')]
+    "prettier/prettier": ["error", require('./.prettierrc.js')],
+    "func-names": ["error", "never"],
   }
 };
