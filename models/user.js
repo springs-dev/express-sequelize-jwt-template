@@ -4,6 +4,16 @@ const encrypt = (data, encryptionHash) =>
   crypto.pbkdf2Sync(data, encryptionHash, 1, 128, 'sha1').toString('base64');
 
 module.exports = (sequelize, DataTypes) => {
+  /**
+   * @typedef User
+   * @property {integer} id
+   * @property {string} email
+   * @property {string} refreshToken
+   * @property {string} encryptionHash
+   * @property {string} encryptedPassword
+   * @property {integer} createdAt
+   * @property {integer} updatedAt
+   */
   const User = sequelize.define(
     'User',
     {

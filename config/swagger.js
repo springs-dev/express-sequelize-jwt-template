@@ -6,6 +6,7 @@ module.exports = (app) => {
     swaggerDefinition: {
       host: process.env.API_URL.replace(/^https?:\/\//i, ''),
       basePath: '/api',
+      consumes: ['application/json'],
       produces: ['application/json'],
       schemes: [process.env.API_URL.replace(/:\/\/.+/, '')],
       securityDefinitions: {
