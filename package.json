@@ -7,8 +7,11 @@
     "dev": "nodemon ./app",
     "start": "node ./app",
     "migrate": "npx sequelize db:migrate",
+
+    "prod": "yarn prod:delete; yarn prod:start",
     "prod:start": "NODE_ENV=production pm2 start ./app.js --name app-name",
-    "prod:restart": "pm2 restart app-name",
+    "prod:restart": "NODE_ENV=production pm2 restart app-name",
+    "prod:delete": "pm2 delete app-name",
     "prod:migrate": "NODE_ENV=production npx sequelize db:migrate",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix"

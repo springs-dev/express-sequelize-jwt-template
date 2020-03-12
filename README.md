@@ -40,11 +40,17 @@ Apply migration
 Apply migration locally
 
 
+### `yarn prod`
+Start or restart production process using pm2
+
 ### `yarn prod:start`
 First time starting production process using pm2
 
 ### `yarn prod:restart`
 Restart production process using pm2
+
+### `yarn prod:delete`
+Kill production process using pm2 
 
 ### `yarn prod:migrate`
 Apply migration locally on production
