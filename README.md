@@ -68,6 +68,12 @@ Verify code style with autofixing. Also will be runned automatically on every co
 ### Code verification
 Enable Eslint and Prettier support in your IDE.
 
+### Scaffold generation
+Will generate route, model, migration and swagger annotations
+```bash
+yo ./_generate.js User name:string,email:string
+```
+
 ### Model generation
 ```bash
 npx sequelize model:create --name User --attributes name:string,email:string

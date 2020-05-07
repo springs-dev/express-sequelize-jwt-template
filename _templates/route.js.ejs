@@ -1,0 +1,96 @@
+const router = require('express').Router();<% if (isSecure) { %>
+const passport = require('passport');<% } %>
+const { pick } = require('lodash');
+const { <%= modelName.camelCase %> } = require('../models');
+<% if (isSecure) { %>
+router.all('*', passport.authenticate('jwt'));<% } %>
+
+/**
+ * Get <%= pluralModelName.camelCase %> list
+ * @route GET /<%= pluralModelName.kebabCase %>
+ * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @returns {Array.<<%= modelName.camelCase %>>} 200 - <%= pluralModelName.camelCase %> list
+ */
+router.get('/', (req, res, next) => {
+  <%= modelName.camelCase %>.findAll()
+    .then((<%= pluralModelName.lowerCamelCase %>) => res.json(<%= pluralModelName.lowerCamelCase %>))
+    .catch(next);
+});
+
+/**
+ * @typedef <%= modelName.camelCase %>CreationData<% for (attributeName in modelAttibutes) { %>
+ * @property {<%= modelAttibutes[attributeName] %>} <%= attributeName %><% } %>
+ */
+
+/**
+ * Create new <%= modelName.camelCase %>
+ * @route POST /<%= pluralModelName.kebabCase %>
+ * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {<%= modelName.camelCase %>CreationData.model} .body.required - <%= modelName.camelCase %> data
+ * @returns {<%= modelName.camelCase %>.model} 200 - Created <%= modelName.camelCase %>
+ */
+router.post('/', (req, res, next) => {
+  <%= modelName.camelCase %>.create(pick(req.body, [<% for (attributeName in modelAttibutes) { %>
+    '<%= attributeName %>',<% } %>
+  ]))
+    .then((<%= modelName.lowerCamelCase %>) => res.json(<%= modelName.lowerCamelCase %>))
+    .catch(next);
+});
+
+
+/**
+ * Get single <%= modelName.camelCase %>
+ * @route GET /<%= pluralModelName.kebabCase %>/{id}
+ * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {integer} id.path.required
+ * @returns {<%= modelName.camelCase %>.model} 200 - <%= modelName.camelCase %>
+ */
+router.get('/:id', (req, res, next) =>
+  <%= modelName.camelCase %>.findByPk(req.params.id)
+    .then((<%= modelName.lowerCamelCase %>) => res.json(<%= modelName.lowerCamelCase %>))
+    .catch(next)
+);
+
+/**
+ * Update single <%= modelName.camelCase %>
+ * @route PATCH /<%= pluralModelName.kebabCase %>/{id}
+ * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {integer} id.path.required
+ * @param {<%= modelName.camelCase %>CreationData.model} .body.required
+ * @returns {<%= modelName.camelCase %>.model} 200 - Updated <%= modelName.camelCase %>
+ */
+router.patch('/:id', (req, res, next) =>
+  <%= modelName.camelCase %>.update(
+    pick(req.body, [<% for (attributeName in modelAttibutes) { %>
+      '<%= attributeName %>',<% } %>
+    ]),
+    {
+      where: { id: req.params.id },
+      returning: true,
+    }
+  )
+    .then((<%= modelName.lowerCamelCase %>) => res.json(<%= modelName.lowerCamelCase %>))
+    .catch(next)
+);
+
+/**
+ * Delete single <%= modelName.camelCase %>
+ * @route DELETE /<%= pluralModelName.kebabCase %>/{id}
+ * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {integer} id.path.required
+ * @returns {integer} 200 - Deleted count
+ */
+router.delete('/:id', (req, res, next) =>
+  <%= modelName.camelCase %>.destroy({
+    where: { id: req.params.id },
+  })
+    .then((<%= modelName.lowerCamelCase %>) => res.json(<%= modelName.lowerCamelCase %>))
+    .catch(next)
+);
+
+module.exports = router;
