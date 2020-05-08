@@ -7,7 +7,6 @@
     "dev": "nodemon ./app",
     "start": "node ./app",
     "migrate": "npx sequelize db:migrate",
-
     "prod": "yarn prod:delete; yarn prod:start",
     "prod:start": "NODE_ENV=production pm2 start ./app.js --name app-name",
     "prod:restart": "NODE_ENV=production pm2 restart app-name",
@@ -30,14 +29,18 @@
     "http-errors": "^1.7.3",
     "hybrid-crypto-js": "^0.2.2",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
     "mailgun-js": "^0.22.0",
+    "moment": "^2.25.3",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pg": "^7.12.1",
+    "pluralize": "^8.0.0",
     "rand-token": "^0.4.0",
     "response-time": "^2.3.2",
-    "sequelize": "^5.19.6"
+    "sequelize": "^5.19.6",
+    "yeoman-generator": "^4.10.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
