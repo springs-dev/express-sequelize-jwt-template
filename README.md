@@ -27,12 +27,22 @@ and create `app-name` database
 ### Code verification
 Choose your NodeJS version and enable ESlint and Prettier support in your IDE.
 
-### Model generation
+### Generators
+You can use generators to speed-up development.
+
+#### Scaffold generation
+Most efficient. Will create model, migration, routes and swagger annotations.
+```bash
+yo ./_generate.js User --attributes name:string,email:string
+```
+Edit `./_templates/*.js.ejs` files in case you will need to make changes in the templates.
+
+#### Model generation
 ```bash
 npx sequelize model:create --name User --attributes name:string,email:string
 ```
 
-### Migration generation
+#### Migration generation
 ```bash
 npx sequelize migration:generate --name add-password-to-user
 ```
