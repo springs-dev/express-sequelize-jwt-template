@@ -33,9 +33,13 @@ You can use generators to speed-up development.
 #### Scaffold generation
 Most efficient. Will create model, migration, routes and swagger annotations.
 ```bash
-yo ./_generate.js User --attributes name:string,email:string
+yo ./_generate.js User --attributes name:string email:string
+yo ./_generate.js User --attributes "name:string(50)"
+yo ./_generate.js User --attributes "names:array(string)"
+yo ./_generate.js User --attributes "names:[string]"
 ```
-Edit `./_templates/*.js.ejs` files in case you will need to make changes in the templates.
+All supported data types you can found at https://sequelize.org/v5/manual/data-types.html
+Edit `./_templates/*.js.ejs` files in case you will need to make changes in the templates.\
 
 #### Model generation
 ```bash

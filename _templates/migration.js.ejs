@@ -8,7 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },<% for (attributeName in modelAttibutes) { %>
       <%= attributeName %>: {
-        type: Sequelize.<%= _.toUpper(modelAttibutes[attributeName]) %>,
+        type: Sequelize.<%- modelAttibutes[attributeName].migration %>,
       },<% } %>
       createdAt: {
         allowNull: false,

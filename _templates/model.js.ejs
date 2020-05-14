@@ -2,15 +2,15 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @typedef <%= modelName.camelCase %>
    * @property {integer} id<% for (attributeName in modelAttibutes) { %>
-   * @property {<%= modelAttibutes[attributeName] %>} <%= attributeName %><% } %>
-   * @property {integer} createdAt
-   * @property {integer} updatedAt
+   * @property {<%- modelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
+   * @property {string} createdAt ISO format
+   * @property {string} updatedAt ISO format
    */
   const <%= modelName.camelCase %> = sequelize.define(
     '<%= modelName.camelCase %>',
     {<% for (attributeName in modelAttibutes) { %>
       <%= attributeName %>: {
-        type: DataTypes.<%= _.toUpper(modelAttibutes[attributeName]) %>,
+        type: DataTypes.<%- modelAttibutes[attributeName].model %>,
       },<% } %>
     },
     {}

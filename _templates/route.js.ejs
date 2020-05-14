@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
 
 /**
  * @typedef <%= modelName.camelCase %>CreationData<% for (attributeName in modelAttibutes) { %>
- * @property {<%= modelAttibutes[attributeName] %>} <%= attributeName %><% } %>
+ * @property {<%- modelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
  */
 
 /**
