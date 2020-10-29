@@ -19,7 +19,8 @@ and create `app-name` database
     yarn migrate
     ```
 
-1. Now you are able to start development with `yarn dev`
+1. Now you are able to start development with `yarn dev`\
+With default configuration your api will be available at http://localhost:3001/api and swagger documentation at http://localhost:3001/api-docs
 
 
 ## Development
@@ -96,3 +97,12 @@ Verify code style
 Verify code style with autofixing.\
 Also will be runned automatically on every commit.
 
+
+### DB swithching
+To switch to MySQL, you need to use `mysql` dialect and port in configuration `/config/db.js` and run `yarn remove pg && yarn add mysql2`
+
+
+### Security
+- do not save any production credentials/keys in .env and repository
+- protect raw SQL queries in ORM from injections with passing **replacements** https://sequelize.org/master/manual/raw-queries.html
+- validate mime-type using **fileFilter** and use hashes instead of names on upload https://github.com/expressjs/multer#diskstorage
