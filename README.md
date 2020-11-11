@@ -8,7 +8,14 @@ https://nodejs.org/en/download/package-manager/
 or via NVM
 
 1. Install PostgreSQL https://www.postgresql.org/download/
-and create `app-name` database
+    ```bash
+    sudo apt install postgresql postgresql-contrib
+    ```
+    and create or use existed user and create `app-name` database
+    ```bash
+    sudo -u postgres createuser -U any-username --interactive --pwprompt
+    sudo -u postgres createdb -O any-username app-name
+    ```
 
 1. Open terminal in a current directory and put commands here
     ```bash
