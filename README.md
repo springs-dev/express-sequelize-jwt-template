@@ -3,7 +3,7 @@
 
 1. Replace `app-name` with your real app name
 
-1. Install NodeJS (above the 10.17 version is recommended, edit .nvmrc and package.json if yoy want to use different version)
+1. Install NodeJS (above the 12.6 version is recommended, edit .nvmrc and package.json if yoy want to use different version)
 https://nodejs.org/en/download/package-manager/
 or via NVM
 
@@ -41,22 +41,27 @@ You can use generators to speed-up development.
 #### Scaffold generation
 Most efficient. Will create model, migration, routes and swagger annotations.
 ```bash
-yo ./_generate.js User --attributes name:string email:string
-yo ./_generate.js User --attributes "name:string(50)"
-yo ./_generate.js User --attributes "names:array(string)"
-yo ./_generate.js User --attributes "names:[string]"
+yarn scaffold User name:string email:string
+yarn scaffold User "name:string(50)"
+yarn scaffold User "names:array(string)"
+yarn scaffold User "names:[string]"
 ```
 All supported data types you can found at https://sequelize.org/v5/manual/data-types.html
 Edit `./_templates/*.js.ejs` files in case you will need to make changes in the templates.\
 
 #### Model generation
 ```bash
-npx sequelize model:create --name User --attributes name:string,email:string
+yarn model User --attributes name:string,email:string
 ```
 
 #### Migration generation
 ```bash
-npx sequelize migration:generate --name add-password-to-user
+yarn migration add-password-to-user
+```
+
+#### Seed generation
+```bash
+yarn seed add-roles
 ```
 
 run `npx sequelize --help` to see more commands
@@ -70,7 +75,7 @@ run `npx sequelize --help` to see more commands
 Will setup all dependencies for front-end and back-enf
 
 #### `yarn migrate`
-Apply migration locally
+Apply migrations and seeds locally
 
 #### `yarn dev`
 Runs the app in the development mode.\
@@ -92,7 +97,7 @@ Restart production process using pm2
 Kill production process using pm2 
 
 #### `yarn prod:migrate`
-Apply migration locally on production
+Apply migrations and seeds on production
 
 
 ### Code quality
