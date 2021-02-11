@@ -6,12 +6,19 @@
   "scripts": {
     "dev": "nodemon ./app",
     "start": "node ./app",
-    "migrate": "npx sequelize db:migrate",
+    "migrate": "npx sequelize db:migrate && npx sequelize db:seed:all",
+
+    "migration": "npx sequelize migration:generate --name",
+    "seed": "npx sequelize seed:generate --name",
+    "model": "npx sequelize model:create --name",
+    "scaffold": "npx yo ./_generate.js",
+
     "prod": "yarn prod:delete; yarn prod:start",
     "prod:start": "NODE_ENV=production pm2 start ./app.js --name app-name",
     "prod:restart": "NODE_ENV=production pm2 restart app-name",
     "prod:delete": "pm2 delete app-name",
-    "prod:migrate": "NODE_ENV=production npx sequelize db:migrate",
+    "prod:migrate": "NODE_ENV=production npx sequelize db:migrate && npx sequelize db:seed:all",
+
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix"
   },
@@ -35,7 +42,7 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "pg": "^7.12.1",
+    "pg": "^8.5.1",
     "pluralize": "^8.0.0",
     "rand-token": "^0.4.0",
     "response-time": "^2.3.2",
@@ -69,6 +76,6 @@
     ]
   },
   "engines": {
-    "node": ">=10.17.0"
+    "node": ">=12.6.0"
   }
 }
