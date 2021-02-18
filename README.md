@@ -16,6 +16,12 @@ or via NVM
     sudo -u postgres createuser -U any-username --interactive --pwprompt
     sudo -u postgres createdb -O any-username app-name
     ```
+    
+1. Copy `.env` to `.env.local` and put the right values to copied file
+    ```bash
+    cp .env .env.local
+    nano .env.local
+    ```
 
 1. Open terminal in a current directory and put commands here
     ```bash
