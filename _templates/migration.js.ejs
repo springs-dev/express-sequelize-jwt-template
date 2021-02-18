@@ -2,10 +2,10 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('<%= pluralModelName.camelCase %>', {
       id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV1,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },<% for (attributeName in modelAttibutes) { %>
       <%= attributeName %>: {
         type: Sequelize.<%- modelAttibutes[attributeName].migration %>,

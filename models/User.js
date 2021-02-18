@@ -6,7 +6,7 @@ const encrypt = (data, encryptionHash) =>
 module.exports = (sequelize, DataTypes) => {
   /**
    * @typedef User
-   * @property {integer} id
+   * @property {string} id
    * @property {string} email
    * @property {string} refreshToken
    * @property {string} encryptionHash
@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
+        allowNull: false,
+        primaryKey: true,
+      },
       email: {
         type: DataTypes.STRING(50),
         validate: {

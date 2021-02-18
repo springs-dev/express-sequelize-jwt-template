@@ -45,7 +45,7 @@ router.post('/', (req, res, next) => {
  * @route GET /<%= pluralModelName.kebabCase %>/{id}
  * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
- * @param {integer} id.path.required
+ * @param {string} id.path.required
  * @returns {<%= modelName.camelCase %>.model} 200 - <%= modelName.camelCase %>
  */
 router.get('/:id', (req, res, next) =>
@@ -59,7 +59,7 @@ router.get('/:id', (req, res, next) =>
  * @route PATCH /<%= pluralModelName.kebabCase %>/{id}
  * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
- * @param {integer} id.path.required
+ * @param {string} id.path.required
  * @param {<%= modelName.camelCase %>CreationData.model} .body.required
  * @returns {<%= modelName.camelCase %>.model} 200 - Updated <%= modelName.camelCase %>
  */
@@ -82,7 +82,7 @@ router.patch('/:id', (req, res, next) =>
  * @route DELETE /<%= pluralModelName.kebabCase %>/{id}
  * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
- * @param {integer} id.path.required
+ * @param {string} id.path.required
  * @returns {integer} 200 - Deleted count
  */
 router.delete('/:id', (req, res, next) =>

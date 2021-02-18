@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   /**
    * @typedef <%= modelName.camelCase %>
-   * @property {integer} id<% for (attributeName in modelAttibutes) { %>
+   * @property {string} id<% for (attributeName in modelAttibutes) { %>
    * @property {<%- modelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
    * @property {string} createdAt ISO format
    * @property {string} updatedAt ISO format
