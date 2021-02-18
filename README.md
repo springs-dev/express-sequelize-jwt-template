@@ -87,6 +87,12 @@ Apply migrations and seeds locally
 Runs the app in the development mode.\
 The api will reload if you make edits.
 
+#### `yarn migrate:undo`
+Undo last migration locally
+
+#### `yarn seed:undo`
+Undo last seed locally
+
 
 ### Production
 
