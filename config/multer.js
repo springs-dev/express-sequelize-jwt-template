@@ -4,7 +4,7 @@ const cryptoRandomString = require('crypto-random-string');
 const { UPLOAD_SERVER_PATH } = require('./constants');
 
 // USAGE:
-// post('/some', imageStorage.single('fieldName'), (req) => {
+// post('/some', imageUploader.single('fieldName'), (req) => {
 //   console.log(req.file);
 //   return Some.create({ someImagePath: toUiPath(req.file.path) })
 //     .catch(next);
@@ -13,15 +13,6 @@ const { UPLOAD_SERVER_PATH } = require('./constants');
 const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, `${UPLOAD_SERVER_PATH}/images/`);
-  },
-
-  fileFilter: (req, file, cb) => {
-    if (!/^image\//.test(file.mimetype)) {
-      cb(new Error('Wrong file type'));
-      return;
-    }
-
-    cb(null, true);
   },
 
   filename: (req, file, cb) => {
@@ -33,5 +24,15 @@ const imageStorage = multer.diskStorage({
 });
 
 module.exports = {
-  imageStorage,
+  imageUploader: multer({
+    storage: imageStorage,
+    fileFilter: (req, file, cb) => {
+      if (!/^image\//.test(file.mimetype)) {
+        cb(new Error('Wrong file type'));
+        return;
+      }
+
+      cb(null, true);
+    },
+  }),
 };
