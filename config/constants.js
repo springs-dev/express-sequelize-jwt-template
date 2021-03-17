@@ -10,4 +10,6 @@ module.exports = {
   EMAIL_FROM: `Support <support@${process.env.MAILGUN_DOMAIN}>`,
   UPLOAD_UI_PATH,
   UPLOAD_SERVER_PATH: path.resolve(`${__dirname}/../public${UPLOAD_UI_PATH}`),
+  ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
 };

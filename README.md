@@ -22,11 +22,11 @@ or via NVM
     cp .env .env.local
     nano .env.local
     ```
+1. Go through all the folders and files to remove unused or uncomment code parts
 
 1. Open terminal in a current directory and put commands here
     ```bash
-    npm install -g yarn
-    npm install -g yeoman
+    npm install -g yarn yo
     
     yarn install
     yarn migrate
@@ -47,12 +47,11 @@ You can use generators to speed-up development.
 #### Scaffold generation
 Most efficient. Will create model, migration, routes and swagger annotations.
 ```bash
-yarn scaffold User name:string email:string
-yarn scaffold User "name:string(50)"
+yarn scaffold User "name:string email:string(50)"
 yarn scaffold User "names:array(string)"
 yarn scaffold User "names:[string]"
 ```
-All supported data types you can found at https://sequelize.org/v5/manual/data-types.html
+All supported data types you can find at https://sequelize.org/v5/manual/data-types.html
 Edit `./_templates/*.js.ejs` files in case you will need to make changes in the templates.\
 
 #### Model generation
