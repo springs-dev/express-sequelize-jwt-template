@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const passwordGenerator = require('generate-password');
-const mailgun = require('../config/mailgun');
 const { User } = require('../models');
 const { FRONT_APP_URL, EMAIL_FROM } = require('../config/constants');
+const sendEmail = require('../helpers/sendEmail');
 const {
   createAndSaveAuthTokens,
   createAndSaveResetPasswordToken,
@@ -107,7 +107,7 @@ router.post('/forgot-password', async (req, res) => {
   }
 
   const token = await createAndSaveResetPasswordToken(user);
-  await mailgun.messages().send({
+  await sendEmail({
     from: EMAIL_FROM,
     to: user.email,
     subject: 'Reset password for app-name',
@@ -149,7 +149,7 @@ router.post('/reset-password', async (req, res) => {
   user.password = password;
   await user.save(user);
 
-  await mailgun.messages().send({
+  await sendEmail({
     from: EMAIL_FROM,
     to: user.email,
     subject: 'Your new password for app-name',

@@ -4,7 +4,7 @@ module.exports = {
       .createTable('Users', {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV1,
+          defaultValue: Sequelize.literal('uuid_generate_v1()'),
           allowNull: false,
           primaryKey: true,
         },

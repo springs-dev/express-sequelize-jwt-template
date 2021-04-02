@@ -9,17 +9,15 @@ module.exports = (sequelize, DataTypes) => {
    * @property {string} id
    * @property {string} email
    * @property {string} refreshToken
-   * @property {string} encryptionHash
-   * @property {string} encryptedPassword
-   * @property {integer} createdAt
-   * @property {integer} updatedAt
+   * @property {string} createdAt - ISO Date
+   * @property {string} updatedAt - ISO Date
    */
   const User = sequelize.define(
     'User',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV1,
+        defaultValue: DataTypes.literal('uuid_generate_v1()'),
         allowNull: false,
         primaryKey: true,
       },

@@ -3,12 +3,18 @@ module.exports = (sequelize, DataTypes) => {
    * @typedef <%= modelName.camelCase %>
    * @property {string} id<% for (attributeName in modelAttibutes) { %>
    * @property {<%- modelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
-   * @property {string} createdAt ISO format
-   * @property {string} updatedAt ISO format
+   * @property {string} createdAt - ISO Date
+   * @property {string} updatedAt - ISO Date
    */
   const <%= modelName.camelCase %> = sequelize.define(
     '<%= modelName.camelCase %>',
-    {<% for (attributeName in modelAttibutes) { %>
+    {
+      id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v1()'),
+        allowNull: false,
+        primaryKey: true,
+      },<% for (attributeName in modelAttibutes) { %>
       <%= attributeName %>: {
         type: DataTypes.<%- modelAttibutes[attributeName].model %>,
       },<% } %>
