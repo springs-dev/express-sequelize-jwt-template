@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
    * @typedef User
    * @property {string} id
    * @property {string} email
-   * @property {string} refreshToken
    * @property {string} createdAt - ISO Date
    * @property {string} updatedAt - ISO Date
    */
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.literal('uuid_generate_v1()'),
+        defaultValue: DataTypes.UUIDV1,
         allowNull: false,
         primaryKey: true,
       },

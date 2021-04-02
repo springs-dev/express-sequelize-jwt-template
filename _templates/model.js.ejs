@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     '<%= modelName.camelCase %>',
     {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('uuid_generate_v1()'),
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
         allowNull: false,
         primaryKey: true,
       },<% for (attributeName in modelAttibutes) { %>
