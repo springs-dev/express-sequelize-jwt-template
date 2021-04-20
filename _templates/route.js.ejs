@@ -73,7 +73,7 @@ router.patch('/:id', (req, res, next) =>
       returning: true,
     }
   )
-    .then((<%= modelName.lowerCamelCase %>) => res.json(<%= modelName.lowerCamelCase %>))
+    .then(([count, [<%= modelName.lowerCamelCase %>]]) => res.json(<%= modelName.lowerCamelCase %>))
     .catch(next)
 );
 
