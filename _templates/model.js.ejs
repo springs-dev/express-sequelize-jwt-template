@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
    * @typedef <%= modelName.camelCase %>
    * @property {string} id<% for (attributeName in modelAttibutes) { %>
    * @property {<%- modelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
-   * @property {string} createdAt - ISO Date
-   * @property {string} updatedAt - ISO Date
+   * @property {string} createdAt Date ISO format
+   * @property {string} updatedAt Date ISO format
    */
   const <%= modelName.camelCase %> = sequelize.define(
     '<%= modelName.camelCase %>',

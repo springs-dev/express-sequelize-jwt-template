@@ -33,7 +33,7 @@
     "express-swagger-generator": "^1.1.15",
     "express-validator": "^6.2.0",
     "generate-password": "^1.4.2",
-    "http-errors": "^1.7.3",
+    "http-errors": "^1.8.0",
     "hybrid-crypto-js": "^0.2.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",

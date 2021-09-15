@@ -89,7 +89,7 @@ router.delete('/:id', (req, res, next) =>
   <%= modelName.camelCase %>.destroy({
     where: { id: req.params.id },
   })
-    .then((<%= modelName.lowerCamelCase %>) => res.json(<%= modelName.lowerCamelCase %>))
+    .then((count) => res.json(count))
     .catch(next)
 );
 
