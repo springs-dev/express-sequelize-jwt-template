@@ -25,6 +25,8 @@ const imageStorage = multer.diskStorage({
 
 module.exports = {
   imageUploader: multer({
+    // Replace with multer.memoryStorage() to use stream upload to CDN (S3, GCS, ...)
+    // Pass req.file.buffer to the upload function in that case
     storage: imageStorage,
     fileFilter: (req, file, cb) => {
       if (!/^image\//.test(file.mimetype)) {
