@@ -3,7 +3,7 @@
 
 1. Replace `app-name` with your real app name
 
-1. Install NodeJS (above the 12.6 version is recommended, edit .nvmrc and package.json if yoy want to use different version)
+1. Install NodeJS (above the 12.22 version is recommended, edit .nvmrc and package.json if yoy want to use different version)
 https://nodejs.org/en/download/package-manager/
 or via NVM
 
@@ -13,10 +13,10 @@ or via NVM
     ```
     and create or use existed user and create `app-name` database
     ```bash
-    sudo -u postgres createuser -U any-username --interactive --pwprompt
-    sudo -u postgres createdb -O any-username app-name
+    sudo -u postgres createuser "some-username" --superuser --pwprompt
+    sudo -u postgres createdb -O "some-username" app-name
     ```
-    
+
 1. Copy `.env` to `.env.local` and put the right values to copied file
     ```bash
     cp .env .env.local
@@ -121,7 +121,7 @@ Verify code style with autofixing.\
 Also will be runned automatically on every commit.
 
 
-### DB swithching
+### DB switching
 To switch to MySQL, you need to use `mysql` dialect and port in configuration `/config/db.js` and run `yarn remove pg && yarn add mysql2`
 
 
