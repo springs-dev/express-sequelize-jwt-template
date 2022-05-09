@@ -1,20 +1,42 @@
 const router = require('express').Router();<% if (isSecure) { %>
 const passport = require('passport');<% } %>
 const { pick } = require('lodash');
+const { DEFAULT_PER_PAGE_COUNT } = require('../config/constants');
 const { <%= modelName.camelCase %> } = require('../models');
 <% if (isSecure) { %>
 router.all('*', passport.authenticate('jwt'));<% } %>
+
+
+/**
+ * @typedef <%= modelName.camelCase %>Paginated
+ * @property {integer} totalCount
+ * @property {integer} pageIndex
+ * @property {Array.<<%= modelName.camelCase %>>} data
+ */
 
 /**
  * Get <%= pluralModelName.camelCase %> list
  * @route GET /<%= pluralModelName.kebabCase %>
  * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
- * @returns {Array.<<%= modelName.camelCase %>>} 200 - <%= pluralModelName.camelCase %> list
+ * @param {integer} pageIndex.query - eg: 0
+ * @param {integer} perPageCount.query - eg: 20
+ * @returns {<%= modelName.camelCase %>Paginated.model} 200 - <%= pluralModelName.camelCase %> paginated list
  */
 router.get('/', (req, res, next) => {
-  <%= modelName.camelCase %>.findAll()
-    .then((<%= pluralModelName.lowerCamelCase %>) => res.json(<%= pluralModelName.lowerCamelCase %>))
+  const { pageIndex = 0, perPageCount = DEFAULT_PER_PAGE_COUNT } = req.query;
+
+  <%= modelName.camelCase %>.findAndCountAll({
+    offset: perPageCount * pageIndex,
+    limit: perPageCount,
+  })
+    .then(({ count, rows }) =>
+      res.json({
+        totalCount: count,
+        pageIndex,
+        data: rows,
+      })
+    )
     .catch(next);
 });
 
