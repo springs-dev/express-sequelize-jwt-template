@@ -1,24 +1,24 @@
-const swagger = require('express-swagger-generator');
+const swagger = require('express-jsdoc-swagger');
 const path = require('path');
 
 module.exports = (app) => {
   swagger(app)({
-    swaggerDefinition: {
-      host: process.env.API_URL.replace(/^https?:\/\//i, ''),
-      basePath: '/api',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      schemes: [process.env.API_URL.replace(/:\/\/.+/, '')],
-      securityDefinitions: {
-        JWT: {
-          type: 'apiKey',
-          in: 'header',
-          name: 'Authorization',
-          description: '',
-        },
+    info: {
+      version: '1.0.0',
+      title: 'app-name',
+      description: '',
+    },
+    security: {
+      JWT: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'Authorization',
+        description: '',
       },
     },
-    basedir: path.resolve(__dirname, '../'),
-    files: ['./routes/*.js', './helpers/*.js', './models/*.js'],
+    baseDir: path.resolve(__dirname, '../'),
+    filesPattern: ['./routes/*.js', './helpers/*.js', './models/*.js'],
+    exposeApiDocs: true,
+    apiDocsPath: '/api-docs.json',
   });
 };

@@ -7,7 +7,7 @@ const {
 } = require('../config/constants');
 
 /**
- * @typedef AuthTokensData
+ * @typedef {object} AuthTokensData
  * @property {integer} userId
  * @property {string} accessToken
  * @property {string} refreshToken

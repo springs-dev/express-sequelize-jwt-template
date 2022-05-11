@@ -9,21 +9,22 @@ const {
 } = require('../helpers/tokens');
 
 /**
- * @typedef SentResponseData
+ * @typedef {object} SentResponseData
  * @property {boolean} sent
  */
 
 /**
- * @typedef AuthData
+ * @typedef {object} AuthData
  * @property {string} email
  * @property {string} password
  */
 
 /**
- * @route POST /login
- * @group Auth
- * @param {AuthData.model} .body.required - User login data
- * @returns {AuthTokensData.model} 200 - User Tokens
+ * POST /login
+ * @summary Login user
+ * @tags Auth
+ * @param {AuthData} request.body.required - User login data
+ * @return {AuthTokensData} 200 - User Tokens
  */
 router.post('/login', async (req, res) => {
   let user;
@@ -49,15 +50,17 @@ router.post('/login', async (req, res) => {
 });
 
 /**
- * @typedef AuthTokenRefreshData
- * @property {string} id User id
+ * @typedef {object} AuthTokenRefreshData
+ * @property {string} id - User id
  * @property {string} refreshToken
  */
+
 /**
- * @route POST /auth-token-refresh
- * @group Auth
- * @param {AuthTokenRefreshData.model} .body.required - User Tokens
- * @returns {AuthTokensData.model} 200 - New tokens
+ * POST /auth-token-refresh
+ * @summary issue new access and refresh tokens
+ * @tags Auth
+ * @param {AuthTokenRefreshData} request.body.required - User Tokens
+ * @return {AuthTokensData} 200 - New tokens
  */
 router.post('/auth-token-refresh', async (req, res) => {
   let user;
@@ -81,14 +84,16 @@ router.post('/auth-token-refresh', async (req, res) => {
 });
 
 /**
- * @typedef ForgotPasswordData
+ * @typedef {object} ForgotPasswordData
  * @property {string} email
  */
+
 /**
- * @route POST /forgot-password
- * @group Auth
- * @param {ForgotPasswordData.model} .body.required - User data
- * @returns {SentResponseData.model} 200
+ * POST /forgot-password
+ * @summary Send forgot password email
+ * @tags Auth
+ * @param {ForgotPasswordData} request.body.required - User data
+ * @return {SentResponseData} 200
  */
 router.post('/forgot-password', async (req, res) => {
   let user;
@@ -118,14 +123,16 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 /**
- * @typedef ResetPasswordData
+ * @typedef {object} ResetPasswordData
  * @property {string} token
  */
+
 /**
- * @route POST /reset-password
- * @group Auth
- * @param {ResetPasswordData.model} .body.required - Reset token
- * @returns {SentResponseData.model} 200
+ * POST /reset-password
+ * @summary Send reset password email
+ * @tags Auth
+ * @param {ResetPasswordData} request.body.required - Reset token
+ * @return {SentResponseData} 200
  */
 router.post('/reset-password', async (req, res) => {
   let user;

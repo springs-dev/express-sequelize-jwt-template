@@ -4,16 +4,17 @@ const { User } = require('../models');
 const { createAndSaveAuthTokens } = require('../helpers/tokens');
 
 /**
- * @typedef UserCreationData
+ * @typedef {object} UserCreationData
  * @property {string} email
  * @property {string} password
  */
 
 /**
- * @route POST /users
- * @group Users
- * @param {UserCreationData.model} .body.required - User registration data
- * @returns {User.model} 200 - Created User
+ * POST /users
+ * @summary Register new User
+ * @tags Users
+ * @param {UserCreationData} request.body.required - User registration data
+ * @return {User} 200 - Created User
  */
 router.post('/', (req, res, next) => {
   User.create({
@@ -26,10 +27,11 @@ router.post('/', (req, res, next) => {
 });
 
 /**
- * @route GET /users
- * @group Users
+ * GET /users
+ * @summary Get users list
+ * @tags Users
  * @security JWT
- * @returns {Array.<User>} 200 - Users list
+ * @return {Array.<User>} 200 - Users list
  */
 router.get('/', passport.authenticate('jwt'), (req, res, next) => {
   User.findAll()

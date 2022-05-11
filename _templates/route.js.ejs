@@ -8,20 +8,20 @@ router.all('*', passport.authenticate('jwt'));<% } %>
 
 
 /**
- * @typedef <%= modelName.camelCase %>Paginated
+ * @typedef {object} <%= modelName.camelCase %>Paginated
  * @property {integer} totalCount
  * @property {integer} pageIndex
- * @property {Array.<<%= modelName.camelCase %>>} data
+ * @property {array<<%= modelName.camelCase %>>} data
  */
 
 /**
- * Get <%= pluralModelName.camelCase %> list
- * @route GET /<%= pluralModelName.kebabCase %>
- * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * GET /<%= pluralModelName.kebabCase %>
+ * @summary Get <%= pluralModelName.camelCase %> list
+ * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
  * @param {integer} pageIndex.query - eg: 0
  * @param {integer} perPageCount.query - eg: 20
- * @returns {<%= modelName.camelCase %>Paginated.model} 200 - <%= pluralModelName.camelCase %> paginated list
+ * @return {<%= modelName.camelCase %>Paginated} 200 - <%= pluralModelName.camelCase %> paginated list
  */
 router.get('/', (req, res, next) => {
   const { pageIndex = 0, perPageCount = DEFAULT_PER_PAGE_COUNT } = req.query;
@@ -41,17 +41,17 @@ router.get('/', (req, res, next) => {
 });
 
 /**
- * @typedef <%= modelName.camelCase %>CreationData<% for (attributeName in modelAttibutes) { %>
+ * @typedef {object} <%= modelName.camelCase %>CreationData<% for (attributeName in modelAttibutes) { %>
  * @property {<%- modelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
  */
 
 /**
- * Create new <%= modelName.camelCase %>
- * @route POST /<%= pluralModelName.kebabCase %>
- * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * POST /<%= pluralModelName.kebabCase %>
+ * @summary Create new <%= modelName.camelCase %>
+ * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
- * @param {<%= modelName.camelCase %>CreationData.model} .body.required - <%= modelName.camelCase %> data
- * @returns {<%= modelName.camelCase %>.model} 200 - Created <%= modelName.camelCase %>
+ * @param {<%= modelName.camelCase %>CreationData} request.body.required - <%= modelName.camelCase %> data
+ * @return {<%= modelName.camelCase %>} 200 - Created <%= modelName.camelCase %>
  */
 router.post('/', (req, res, next) => {
   <%= modelName.camelCase %>.create(pick(req.body, [<% for (attributeName in modelAttibutes) { %>
@@ -63,12 +63,12 @@ router.post('/', (req, res, next) => {
 
 
 /**
- * Get single <%= modelName.camelCase %>
- * @route GET /<%= pluralModelName.kebabCase %>/{id}
- * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * GET /<%= pluralModelName.kebabCase %>/{id}
+ * @summary Get single <%= modelName.camelCase %>
+ * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
  * @param {string} id.path.required
- * @returns {<%= modelName.camelCase %>.model} 200 - <%= modelName.camelCase %>
+ * @return {<%= modelName.camelCase %>} 200 - <%= modelName.camelCase %>
  */
 router.get('/:id', (req, res, next) =>
   <%= modelName.camelCase %>.findByPk(req.params.id)
@@ -77,13 +77,13 @@ router.get('/:id', (req, res, next) =>
 );
 
 /**
- * Update single <%= modelName.camelCase %>
- * @route PATCH /<%= pluralModelName.kebabCase %>/{id}
- * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * PATCH /<%= pluralModelName.kebabCase %>/{id}
+ * @summary Update single <%= modelName.camelCase %>
+ * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
  * @param {string} id.path.required
- * @param {<%= modelName.camelCase %>CreationData.model} .body.required
- * @returns {<%= modelName.camelCase %>.model} 200 - Updated <%= modelName.camelCase %>
+ * @param {<%= modelName.camelCase %>CreationData} request.body.required
+ * @return {<%= modelName.camelCase %>} 200 - Updated <%= modelName.camelCase %>
  */
 router.patch('/:id', (req, res, next) =>
   <%= modelName.camelCase %>.update(
@@ -100,12 +100,12 @@ router.patch('/:id', (req, res, next) =>
 );
 
 /**
- * Delete single <%= modelName.camelCase %>
- * @route DELETE /<%= pluralModelName.kebabCase %>/{id}
- * @group <%= pluralModelName.camelCase %><% if (isSecure) { %>
+ * DELETE /<%= pluralModelName.kebabCase %>/{id}
+ * @summary Delete single <%= modelName.camelCase %>
+ * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
  * @param {string} id.path.required
- * @returns {integer} 200 - Deleted count
+ * @return {integer} 200 - Deleted count
  */
 router.delete('/:id', (req, res, next) =>
   <%= modelName.camelCase %>.destroy({

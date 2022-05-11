@@ -5,7 +5,7 @@ const encrypt = (data, encryptionHash) =>
 
 module.exports = (sequelize, DataTypes) => {
   /**
-   * @typedef User
+   * @typedef {object} User
    * @property {string} id
    * @property {string} email
    * @property {string} createdAt - ISO Date
