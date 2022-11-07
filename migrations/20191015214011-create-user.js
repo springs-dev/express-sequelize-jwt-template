@@ -1,47 +1,50 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, DataTypes) => {
     return queryInterface
       .createTable('Users', {
         id: {
-          type: Sequelize.UUID,
-          defaultValue: Sequelize.literal('uuid_generate_v1()'),
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.literal('uuid_generate_v1()'),
           allowNull: false,
           primaryKey: true,
         },
         email: {
-          type: Sequelize.STRING(50),
+          type: DataTypes.STRING(50),
         },
         refreshToken: {
-          type: Sequelize.STRING,
+          type: DataTypes.STRING,
         },
         encryptionHash: {
-          type: Sequelize.STRING,
+          type: DataTypes.STRING,
         },
         encryptedPassword: {
-          type: Sequelize.STRING,
+          type: DataTypes.STRING,
+        },
+        resetPasswordToken: {
+          type: DataTypes.STRING,
         },
         createdAt: {
           allowNull: false,
-          type: Sequelize.DATE,
+          type: DataTypes.DATE,
         },
         updatedAt: {
           allowNull: false,
-          type: Sequelize.DATE,
+          type: DataTypes.DATE,
         },
       })
       .then(() =>
         queryInterface.addIndex(
           'Users',
-          [Sequelize.fn('lower', Sequelize.col('email'))],
+          [DataTypes.fn('lower', DataTypes.col('email'))],
           {
             unique: true,
           }
         )
       );
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, DataTypes) => {
     return queryInterface
-      .removeIndex('Users', [Sequelize.fn('lower', Sequelize.col('email'))], {
+      .removeIndex('Users', [DataTypes.fn('lower', DataTypes.col('email'))], {
         unique: true,
       })
       .then(() => queryInterface.dropTable('Users'));

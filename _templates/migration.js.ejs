@@ -1,22 +1,22 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, DataTypes) => {
     return queryInterface.createTable('<%= pluralModelName.camelCase %>', {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('uuid_generate_v1()'),
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.literal('uuid_generate_v1()'),
         allowNull: false,
         primaryKey: true,
       },<% for (attributeName in modelAttibutes) { %>
       <%= attributeName %>: {
-        type: Sequelize.<%- modelAttibutes[attributeName].migration %>,
+        type: DataTypes.<%- modelAttibutes[attributeName].migration %>,
       },<% } %>
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
     });
   },

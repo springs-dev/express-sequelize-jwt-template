@@ -10,7 +10,7 @@ const { createAndSaveAuthTokens } = require('../helpers/tokens');
  */
 
 /**
- * POST /users
+ * POST /api/users
  * @summary Register new User
  * @tags Users
  * @param {UserCreationData} request.body.required - User registration data
@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
 });
 
 /**
- * GET /users
+ * GET /api/users
  * @summary Get users list
  * @tags Users
  * @security JWT

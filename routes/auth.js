@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const passwordGenerator = require('generate-password');
 const { User } = require('../models');
-const { FRONT_APP_URL, EMAIL_FROM } = require('../config/constants');
-const sendEmail = require('../helpers/sendEmail');
+const {
+  FRONT_APP_URL,
+  EMAIL_FROM,
+  MAILGUN_DOMAIN,
+} = require('../config/constants');
+const mailgun = require('../config/mailgun');
 const {
   createAndSaveAuthTokens,
   createAndSaveResetPasswordToken,
@@ -20,7 +24,7 @@ const {
  */
 
 /**
- * POST /login
+ * POST /api/login
  * @summary Login user
  * @tags Auth
  * @param {AuthData} request.body.required - User login data
@@ -56,7 +60,7 @@ router.post('/login', async (req, res) => {
  */
 
 /**
- * POST /auth-token-refresh
+ * POST /api/auth-token-refresh
  * @summary issue new access and refresh tokens
  * @tags Auth
  * @param {AuthTokenRefreshData} request.body.required - User Tokens
@@ -89,7 +93,7 @@ router.post('/auth-token-refresh', async (req, res) => {
  */
 
 /**
- * POST /forgot-password
+ * POST /api/forgot-password
  * @summary Send forgot password email
  * @tags Auth
  * @param {ForgotPasswordData} request.body.required - User data
@@ -112,7 +116,7 @@ router.post('/forgot-password', async (req, res) => {
   }
 
   const token = await createAndSaveResetPasswordToken(user);
-  await sendEmail({
+  await mailgun.messages.create(MAILGUN_DOMAIN, {
     from: EMAIL_FROM,
     to: user.email,
     subject: 'Reset password for app-name',
@@ -128,7 +132,7 @@ router.post('/forgot-password', async (req, res) => {
  */
 
 /**
- * POST /reset-password
+ * POST /api/reset-password
  * @summary Send reset password email
  * @tags Auth
  * @param {ResetPasswordData} request.body.required - Reset token
@@ -156,7 +160,7 @@ router.post('/reset-password', async (req, res) => {
   user.password = password;
   await user.save(user);
 
-  await sendEmail({
+  await mailgun.messages.create(MAILGUN_DOMAIN, {
     from: EMAIL_FROM,
     to: user.email,
     subject: 'Your new password for app-name',
