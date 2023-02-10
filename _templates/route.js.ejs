@@ -15,7 +15,7 @@ router.all('*', passport.authenticate('jwt'));<% } %>
  */
 
 /**
- * GET /<%= pluralModelName.kebabCase %>
+ * GET /api/<%= pluralModelName.kebabCase %>
  * @summary Get <%= pluralModelName.camelCase %> list
  * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
@@ -46,7 +46,7 @@ router.get('/', (req, res, next) => {
  */
 
 /**
- * POST /<%= pluralModelName.kebabCase %>
+ * POST /api/<%= pluralModelName.kebabCase %>
  * @summary Create new <%= modelName.camelCase %>
  * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
@@ -63,7 +63,7 @@ router.post('/', (req, res, next) => {
 
 
 /**
- * GET /<%= pluralModelName.kebabCase %>/{id}
+ * GET /api/<%= pluralModelName.kebabCase %>/{id}
  * @summary Get single <%= modelName.camelCase %>
  * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
@@ -77,7 +77,7 @@ router.get('/:id', (req, res, next) =>
 );
 
 /**
- * PATCH /<%= pluralModelName.kebabCase %>/{id}
+ * PATCH /api/<%= pluralModelName.kebabCase %>/{id}
  * @summary Update single <%= modelName.camelCase %>
  * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
@@ -100,7 +100,7 @@ router.patch('/:id', (req, res, next) =>
 );
 
 /**
- * DELETE /<%= pluralModelName.kebabCase %>/{id}
+ * DELETE /api/<%= pluralModelName.kebabCase %>/{id}
  * @summary Delete single <%= modelName.camelCase %>
  * @tags <%= pluralModelName.camelCase %><% if (isSecure) { %>
  * @security JWT<% } %>
