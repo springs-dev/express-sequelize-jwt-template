@@ -59,12 +59,17 @@ Edit `./_templates/*.js.ejs` files in case you will need to make changes in the 
 yarn model User --attributes name:string,email:string
 ```
 
-#### Migration generation
+#### Empty migration generation
 ```bash
 yarn migration add-password-to-user
 ```
 
-#### Seed generation
+#### Add column migration generation
+```bash
+yarn addColumnsMigration User "name:string email:string(50)"
+```
+
+#### Empty seed generation
 ```bash
 yarn seed add-roles
 ```

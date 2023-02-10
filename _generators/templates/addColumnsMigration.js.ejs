@@ -1,0 +1,16 @@
+module.exports = {
+  up: (queryInterface, DataTypes) =>
+    queryInterface.sequelize.transaction((transaction) =>
+      Promise.all([<% for (attributeName in typeNamesByModelAttibutes) { %>
+        queryInterface.addColumn('<%= pluralModelNames.camelCase %>', '<%= attributeName %>', DataTypes.<%- typeNamesByModelAttibutes[attributeName].migration %>, {
+          transaction,
+        }),<% } %>
+      ])
+    ),
+  down: (queryInterface) =>
+    queryInterface.sequelize.transaction((transaction) =>
+      Promise.all([<% for (attributeName in typeNamesByModelAttibutes) { %>
+        queryInterface.removeColumn('<%= pluralModelNames.camelCase %>', '<%= attributeName %>', { transaction }),<% } %>
+      ])
+    ),
+};

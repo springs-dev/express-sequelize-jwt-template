@@ -36,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
       encryptedPassword: {
         type: DataTypes.STRING,
       },
+      resetPasswordToken: {
+        type: DataTypes.STRING,
+      },
       password: {
         type: DataTypes.VIRTUAL,
         set(password) {

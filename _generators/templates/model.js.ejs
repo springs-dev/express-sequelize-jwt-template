@@ -1,0 +1,29 @@
+module.exports = (sequelize, DataTypes) => {
+  /**
+   * @typedef {object} <%= modelNames.camelCase %>
+   * @property {string} id<% for (attributeName in typeNamesByModelAttibutes) { %>
+   * @property {<%- typeNamesByModelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
+   * @property {string} createdAt Date ISO format
+   * @property {string} updatedAt Date ISO format
+   */
+  const <%= modelNames.camelCase %> = sequelize.define(
+    '<%= modelNames.camelCase %>',
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
+        allowNull: false,
+        primaryKey: true,
+      },<% for (attributeName in typeNamesByModelAttibutes) { %>
+      <%= attributeName %>: {
+        type: DataTypes.<%- typeNamesByModelAttibutes[attributeName].model %>,
+      },<% } %>
+    },
+    {}
+  );
+  <%= modelNames.camelCase %>.associate = function() {
+    // associations can be defined here
+  };
+
+  return <%= modelNames.camelCase %>;
+};

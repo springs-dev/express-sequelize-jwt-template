@@ -10,6 +10,7 @@ module.exports = {
   RESET_PASSWORD_TOKEN_EXPIRATION_TIME: '120m',
   EMAIL_FROM: `Support <support@${process.env.MAILGUN_DOMAIN}>`,
   DEFAULT_PER_PAGE_COUNT,
+  MAILGUN_DOMAIN: process.env.MAILGUN_DOMAIN,
   UPLOAD_UI_PATH,
   UPLOAD_SERVER_PATH: path.resolve(`${__dirname}/../public${UPLOAD_UI_PATH}`),
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
