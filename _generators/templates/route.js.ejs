@@ -1,0 +1,118 @@
+const router = require('express').Router();<% if (isSecure) { %>
+const passport = require('passport');<% } %>
+const { pick } = require('lodash');
+const { DEFAULT_PER_PAGE_COUNT } = require('../config/constants');
+const { <%= modelNames.camelCase %> } = require('../models');
+<% if (isSecure) { %>
+router.all('*', passport.authenticate('jwt'));<% } %>
+
+
+/**
+ * @typedef {object} <%= modelNames.camelCase %>Paginated
+ * @property {integer} totalCount
+ * @property {integer} pageIndex
+ * @property {array<<%= modelNames.camelCase %>>} data
+ */
+
+/**
+ * GET /api/<%= pluralModelNames.kebabCase %>
+ * @summary Get <%= pluralModelNames.camelCase %> list
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {integer} pageIndex.query - eg: 0
+ * @param {integer} perPageCount.query - eg: 20
+ * @return {<%= modelNames.camelCase %>Paginated} 200 - <%= pluralModelNames.camelCase %> paginated list
+ */
+router.get('/', (req, res, next) => {
+  const { pageIndex = 0, perPageCount = DEFAULT_PER_PAGE_COUNT } = req.query;
+
+  <%= modelNames.camelCase %>.findAndCountAll({
+    offset: perPageCount * pageIndex,
+    limit: perPageCount,
+  })
+    .then(({ count, rows }) =>
+      res.json({
+        totalCount: count,
+        pageIndex,
+        data: rows,
+      })
+    )
+    .catch(next);
+});
+
+/**
+ * @typedef {object} <%= modelNames.camelCase %>CreationData<% for (attributeName in typeNamesByModelAttibutes) { %>
+ * @property {<%- typeNamesByModelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
+ */
+
+/**
+ * POST /api/<%= pluralModelNames.kebabCase %>
+ * @summary Create new <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {<%= modelNames.camelCase %>CreationData} request.body.required - <%= modelNames.camelCase %> data
+ * @return {<%= modelNames.camelCase %>} 200 - Created <%= modelNames.camelCase %>
+ */
+router.post('/', (req, res, next) => {
+  <%= modelNames.camelCase %>.create(pick(req.body, [<% for (attributeName in typeNamesByModelAttibutes) { %>
+    '<%= attributeName %>',<% } %>
+  ]))
+    .then((<%= modelNames.lowerCamelCase %>) => res.json(<%= modelNames.lowerCamelCase %>))
+    .catch(next);
+});
+
+
+/**
+ * GET /api/<%= pluralModelNames.kebabCase %>/{id}
+ * @summary Get single <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {string} id.path.required
+ * @return {<%= modelNames.camelCase %>} 200 - <%= modelNames.camelCase %>
+ */
+router.get('/:id', (req, res, next) =>
+  <%= modelNames.camelCase %>.findByPk(req.params.id)
+    .then((<%= modelNames.lowerCamelCase %>) => res.json(<%= modelNames.lowerCamelCase %>))
+    .catch(next)
+);
+
+/**
+ * PATCH /api/<%= pluralModelNames.kebabCase %>/{id}
+ * @summary Update single <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {string} id.path.required
+ * @param {<%= modelNames.camelCase %>CreationData} request.body.required
+ * @return {<%= modelNames.camelCase %>} 200 - Updated <%= modelNames.camelCase %>
+ */
+router.patch('/:id', (req, res, next) =>
+  <%= modelNames.camelCase %>.update(
+    pick(req.body, [<% for (attributeName in typeNamesByModelAttibutes) { %>
+      '<%= attributeName %>',<% } %>
+    ]),
+    {
+      where: { id: req.params.id },
+      returning: true,
+    }
+  )
+    .then(([count, [<%= modelNames.lowerCamelCase %>]]) => res.json(<%= modelNames.lowerCamelCase %>))
+    .catch(next)
+);
+
+/**
+ * DELETE /api/<%= pluralModelNames.kebabCase %>/{id}
+ * @summary Delete single <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {string} id.path.required
+ * @return {integer} 200 - Deleted count
+ */
+router.delete('/:id', (req, res, next) =>
+  <%= modelNames.camelCase %>.destroy({
+    where: { id: req.params.id },
+  })
+    .then((count) => res.json(count))
+    .catch(next)
+);
+
+module.exports = router;

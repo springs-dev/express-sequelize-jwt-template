@@ -1,14 +1,14 @@
 module.exports = {
   up: (queryInterface, DataTypes) => {
-    return queryInterface.createTable('<%= pluralModelName.camelCase %>', {
+    return queryInterface.createTable('<%= pluralModelNames.camelCase %>', {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.literal('uuid_generate_v1()'),
         allowNull: false,
         primaryKey: true,
-      },<% for (attributeName in modelAttibutes) { %>
+      },<% for (attributeName in typeNamesByModelAttibutes) { %>
       <%= attributeName %>: {
-        type: DataTypes.<%- modelAttibutes[attributeName].migration %>,
+        type: DataTypes.<%- typeNamesByModelAttibutes[attributeName].migration %>,
       },<% } %>
       createdAt: {
         allowNull: false,
@@ -21,6 +21,6 @@ module.exports = {
     });
   },
   down: (queryInterface) => {
-    return queryInterface.dropTable('<%= pluralModelName.camelCase %>');
+    return queryInterface.dropTable('<%= pluralModelNames.camelCase %>');
   },
 };
