@@ -7,11 +7,9 @@ const createSubQuery = (Model, queryOptions = {}) => {
     Model._validateIncludedElements.bind(Model)(queryOptions);
   }
 
-  return sequelize.dialect.QueryGenerator.selectQuery(
-    Model.tableName,
-    queryOptions,
-    Model
-  ).slice(0, -1);
+  return sequelize.dialect.queryGenerator
+    .selectQuery(Model.tableName, queryOptions, Model)
+    .slice(0, -1);
 };
 
 const createSubQueryArrayLiteral = (Model, queryOptions) => {
@@ -73,7 +71,7 @@ const findAndCountAllPaginated = (
 ) => {
   const subQueryOptions = {
     ...queryOptions,
-    include: queryOptions.include.map((include) => ({
+    include: (queryOptions.include || []).map((include) => ({
       ...include,
       attributes: [],
     })),
@@ -94,17 +92,20 @@ const findAndCountAllPaginated = (
             attributes: [
               'id',
               literal(
-                `row_number() OVER (ORDER BY  ${getOrderQuery(
+                `row_number() OVER (ORDER BY ${
                   queryOptions.order
-                )}) as rnum`
+                    ? getOrderQuery(queryOptions.order)
+                    : 'id DESC'
+                }) as rnum`
               ),
             ],
             distinct: true,
             limit: undefined,
             offset: undefined,
           }
-        )}) as "InnerSubQuery" ORDER BY "InnerSubQuery".rnum LIMIT ${perPageCount} OFFSET ${perPageCount *
-          pageIndex}`,
+        )}) as "InnerSubQuery" ORDER BY "InnerSubQuery".rnum LIMIT ${perPageCount} OFFSET ${
+          perPageCount * pageIndex
+        }`,
         {
           type: QueryTypes.SELECT,
           raw: true,
