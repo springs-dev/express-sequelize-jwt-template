@@ -80,6 +80,9 @@ const findAndCountAllPaginated = (
   return Promise.all([
     Model.count({
       ...subQueryOptions,
+      attributes: [],
+      group: undefined,
+      order: undefined,
       distinct: true,
     }),
 
