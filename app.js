@@ -1,4 +1,3 @@
-require('dotenv-flow').config();
 const express = require('express');
 
 const configure = require('./config');

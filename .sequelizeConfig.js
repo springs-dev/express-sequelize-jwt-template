@@ -1,4 +1,4 @@
-require('dotenv-flow').config();
+require('./config/env');
 
 module.exports = {
   development: {

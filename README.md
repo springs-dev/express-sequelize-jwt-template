@@ -19,7 +19,7 @@ or via NVM
 
 1. Copy `.env` to `.env.local` and put the right values to copied file
     ```bash
-    cp .env .env.local
+    cp .env.local.example .env.local
     nano .env.local
     ```
 1. Go through all the folders and files to remove unused or uncomment code parts
@@ -76,6 +76,10 @@ yarn seed add-roles
 
 run `npx sequelize --help` to see more commands
 
+
+## Pattern usage examples
+
+### TODO
 
 ## Available Scripts
 

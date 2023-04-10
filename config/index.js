@@ -1,3 +1,4 @@
+require('./env');
 const api = require('./api');
 const debug = require('./debug');
 const passport = require('./passport');
