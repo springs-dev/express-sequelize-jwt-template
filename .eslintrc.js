@@ -11,8 +11,8 @@ module.exports = {
   },
   plugins: ['prettier'],
   parserOptions: {
+    ecmaVersion: 2020,
     ecmaFeatures: {
-      ecmaVersion: 6,
       sourceType: 'module',
       impliedStrict: true,
     },
