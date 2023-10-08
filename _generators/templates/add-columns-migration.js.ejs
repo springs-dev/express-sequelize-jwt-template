@@ -1,0 +1,32 @@
+/** @type {import('sequelize-cli').Migration} */
+export default {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.sequelize.transaction((transaction) =>
+      Promise.all([
+        <% for (attributeName in typeNamesByModelAttibutes) { %>
+          queryInterface.addColumn(
+            '<%= pluralModelNames.camelCase %>',
+            '<%= attributeName %>',
+            Sequelize.<%- typeNamesByModelAttibutes[attributeName].migration %>,
+            {
+              transaction,
+            }
+          ),
+        <% } %>
+      ])
+    );
+  },
+  down: (queryInterface) => {
+    return queryInterface.sequelize.transaction((transaction) =>
+      Promise.all([
+        <% for (attributeName in typeNamesByModelAttibutes) { %>
+          queryInterface.removeColumn(
+            '<%= pluralModelNames.camelCase %>',
+            '<%= attributeName %>',
+            { transaction }
+          ),
+        <% } %>
+      ])
+    );
+  },
+};

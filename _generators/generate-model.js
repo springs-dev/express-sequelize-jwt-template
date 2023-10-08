@@ -5,7 +5,7 @@
 
 // eslint-disable-next-line node/no-unpublished-import,import/no-extraneous-dependencies
 import pluralize from 'pluralize';
-// eslint-disable-next-line node/no-unpublished-import,import/no-extraneous-dependencies
+// eslint-disable-next-line node/no-unpublished-import,import/no-extraneous-dependencies, import/no-extraneous-dependencies,node/no-unpublished-import
 import Generator from 'yeoman-generator';
 
 import getModelAttributeNames from './helpers/get-model-attribute-names.js';
@@ -18,11 +18,10 @@ import getTimestamp from './helpers/get-timestamp.js';
  * @extends Generator
  */
 export default class extends Generator {
-  hasValidators = false;
-
-  isSecure = false;
-
   /**
+   *
+   * Constructor for the generator.
+   *
    * @param {String[]} args - Command line arguments.
    * @param {Object} opts - Generator options.
    */
@@ -31,24 +30,6 @@ export default class extends Generator {
     this.argument('modelName', { type: String, required: true });
     this.argument('modelAttributes', { type: Array, required: true });
     this.typeNamesByModelAttibutes = null;
-  }
-
-  /**
-   * @returns {Promise<void>} - Promise that resolves when the prompt is completed.
-   */
-  prompting() {
-    return this.prompt([
-      {
-        type: 'confirm',
-        name: 'isSecure',
-        message: 'Need request authorization?',
-        default: true,
-      },
-    ]).then((dto) => {
-      const { isSecure, hasValidators } = dto;
-      this.isSecure = isSecure;
-      this.hasValidators = hasValidators;
-    });
   }
 
   /**
@@ -61,29 +42,17 @@ export default class extends Generator {
     this.typeNamesByModelAttibutes = getModelAttributeNames(modelAttributes);
 
     this.fs.copyTpl(
-      '_generators/templates/model.js.ejs',
-      this.destinationPath(`src/models/${this.modelNames.kebabCase}.js`),
-      this,
-    );
-    this.fs.copyTpl(
       '_generators/templates/migration.js.ejs',
       this.destinationPath(
         `src/migrations/${getTimestamp()}-create-${this.modelNames.kebabCase}.js`,
       ),
       this,
     );
+
     this.fs.copyTpl(
-      '_generators/templates/route.js.ejs',
-      this.destinationPath(`src/routes/${this.pluralModelNames.kebabCase}.js`),
+      '_generators/templates/model.js.ejs',
+      this.destinationPath(`src/models/${this.modelNames.kebabCase}.js`),
       this,
     );
-  }
-
-  end() {
-    this.log(`
-Add next code to routes/index.js:
-import ${this.pluralModelNames.lowerCamelCase} from '#src/routes/${this.pluralModelNames.kebabCase}.js';
-router.use('/${this.pluralModelNames.lowerCamelCase}', ${this.pluralModelNames.lowerCamelCase});
-`);
   }
 }

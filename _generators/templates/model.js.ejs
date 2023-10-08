@@ -1,29 +1,44 @@
-module.exports = (sequelize, DataTypes) => {
-  /**
-   * @typedef {object} <%= modelNames.camelCase %>
-   * @property {string} id<% for (attributeName in typeNamesByModelAttibutes) { %>
-   * @property {<%- typeNamesByModelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
-   * @property {string} createdAt Date ISO format
-   * @property {string} updatedAt Date ISO format
-   */
-  const <%= modelNames.camelCase %> = sequelize.define(
-    '<%= modelNames.camelCase %>',
+import { DataTypes, Model } from 'sequelize';
+
+/**
+* @typedef {object} <%= modelNames.camelCase %>
+* @property {string} id<% for (attributeName in typeNamesByModelAttibutes) { %>
+* @property {<%- typeNamesByModelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
+* @property {string} createdAt
+* @property {string} updatedAt
+*/
+
+
+export default class <%= modelNames.camelCase %> extends Model {
+
+  /** @param {Object<string, import('sequelize').Model>} models */
+   // eslint-disable-next-line no-unused-vars
+  static associate(models) {
+  }
+
+  /** @param {import('sequelize').Sequelize} sequelize */
+  static initialization(sequelize) {
+  <%= modelNames.camelCase %>.init(
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV1,
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
-      },<% for (attributeName in typeNamesByModelAttibutes) { %>
+      },
+      <% for (attributeName in typeNamesByModelAttibutes) { %>
       <%= attributeName %>: {
         type: DataTypes.<%- typeNamesByModelAttibutes[attributeName].model %>,
-      },<% } %>
+        allowNull: false,
+      },
+      <% } %>
     },
-    {}
+    {
+      sequelize,
+      modelName: <%= modelNames.camelCase %>.name,
+      timestamps: true,
+    }
   );
-  <%= modelNames.camelCase %>.associate = function() {
-    // associations can be defined here
-  };
-
   return <%= modelNames.camelCase %>;
-};
+  }
+}

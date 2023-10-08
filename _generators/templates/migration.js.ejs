@@ -1,26 +1,30 @@
-module.exports = {
-  up: (queryInterface, DataTypes) => {
+/** @type {import('sequelize-cli').Migration} */
+export default {
+  up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('<%= pluralModelNames.camelCase %>', {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.literal('uuid_generate_v1()'),
-        allowNull: false,
-        primaryKey: true,
-      },<% for (attributeName in typeNamesByModelAttibutes) { %>
-      <%= attributeName %>: {
-        type: DataTypes.<%- typeNamesByModelAttibutes[attributeName].migration %>,
-      },<% } %>
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-    });
-  },
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.literal('uuid_generate_v1()'),
+      allowNull: false,
+      primaryKey: true,
+    },<% for (attributeName in typeNamesByModelAttibutes) { %>
+    <%= attributeName %>: {
+      type: Sequelize.<%- typeNamesByModelAttibutes[attributeName].migration %>,
+    },
+    <% } %>
+
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+    },
+
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+    },
+  })
+},
   down: (queryInterface) => {
     return queryInterface.dropTable('<%= pluralModelNames.camelCase %>');
-  },
-};
+  }
+}

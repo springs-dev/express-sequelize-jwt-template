@@ -1,0 +1,61 @@
+{
+  "extends": ["airbnb-base", "plugin:node/recommended", "plugin:prettier/recommended", "prettier"],
+  "env": {
+    "es2022": true,
+    "node": true
+  },
+  "plugins": ["prettier", "import"],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "rules": {
+    "no-constructor-return": "off",
+    "node/no-missing-import": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "node/no-unsupported-features/es-syntax": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": 0,
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "node/file-extension-in-import": [2, "always"],
+    "prettier/prettier": "error",
+    "func-names": ["error", "never"],
+    "class-methods-use-this": 0,
+    "no-console": "error",
+    "no-unused-private-class-members": "error",
+    "require-await": "error",
+    "max-params": ["error", 4],
+    "handle-callback-err": "error",
+    "no-sync": "error",
+    "no-path-concat": "error",
+    "node/no-deprecated-api": "error",
+    "no-implicit-globals": "error",
+    "no-lone-blocks": "error",
+    "no-self-compare": "error",
+    "no-unused-expressions": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ],
+    "complexity": [2, { "max": 15 }],
+    "max-depth": [2, { "max": 3 }]
+  },
+  "settings": {
+    "import/resolver": {
+      "eslint-import-resolver-custom-alias": {
+        "alias": {
+          "#src": "./src"
+        },
+        "extensions": [".js", ".cjs", ".mjs", ".ts", ".d.ts"]
+      }
+    }
+  }
+}
