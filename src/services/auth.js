@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 import {
   AUTH_ACCESS_TOKEN_EXPIRATION_TIME,
   AUTH_REFRESH_TOKEN_EXPIRATION_TIME,
-  AUTH_SECRET_KEY,
   AUTH_RESET_PASSWORD_TOKEN_EXPIRATION_TIME,
-} from '#src/configs/constants.js';
+  AUTH_SECRET_KEY,
+} from '#src/configs/auth.js';
 import Token from '#src/models/token.js';
 import { generateRandomString } from '#src/utils/common.js';
 

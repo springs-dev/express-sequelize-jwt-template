@@ -80,13 +80,12 @@ Here's an overview of the project structure:
 - **public**: Stores static assets for the web server.
 - **src**: The main application source code.
   - **configs**: Configuration files for the application.
-  - **libs**: Utility libraries.
   - **middlewares**: Middleware setup.
   - **migrations**: Sequelize migration scripts.
   - **models**: Definitions of data models.
   - **routes**: Definitions of API endpoints and core business logic.
   - **seeders**: Scripts for seeding the database.
-  - **services**: Common business logic.
+  - **services**: Common business logic && integration.
   - **utils**: Utility functions.
 - **Root Level Config & Scripts**: Configuration files such as `.editorconfig` and `.eslintrc.json`, along with scripts like `erd.js` and `sequelize-manager.js`.
 

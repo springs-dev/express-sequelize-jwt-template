@@ -2,11 +2,12 @@ import express from 'express';
 import CreateError from 'http-errors';
 import passport from 'passport';
 
-import { DEFAULT_SENDER_EMAIL, FRONTEND_BASE_URL, STATUS_SUCCESS } from '#src/configs/constants.js';
-import * as mailer from '#src/libs/mailer.js';
+import { FRONTEND_BASE_URL, STATUS_SUCCESS } from '#src/configs/constants.js';
+import { DEFAULT_SENDER_EMAIL } from '#src/configs/mailgun.js';
 import Token from '#src/models/token.js';
 import User from '#src/models/user.js';
 import * as authService from '#src/services/auth.js';
+import * as mailer from '#src/services/mailer.js';
 
 const router = express.Router();
 

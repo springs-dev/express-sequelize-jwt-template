@@ -9,7 +9,7 @@ import { Sequelize } from 'sequelize';
 import { Umzug, SequelizeStorage } from 'umzug';
 
 import database from '#src/database.js';
-import { logger } from '#src/libs/logger.js';
+import { logger } from '#src/utils/logger.js';
 
 await database.start();
 const { sequelize } = database;

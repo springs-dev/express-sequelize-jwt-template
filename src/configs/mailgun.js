@@ -9,6 +9,8 @@ export const MAILGUN_CONFIG = {
 // Your Mailgun domain used for sending emails, extracted from environment variables.
 export const { MAILGUN_DOMAIN } = process.env;
 
+export const DEFAULT_SENDER_EMAIL = `Support <support@${process.env.MAILGUN_DOMAIN}>`;
+
 // It's recommended to refer to the official Mailgun documentation for more details on configuration:
 // Mailgun API Quickstart: https://documentation.mailgun.com/en/latest/quickstart.html
 // Mailgun API User Manual: https://documentation.mailgun.com/en/latest/user_manual.html

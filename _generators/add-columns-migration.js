@@ -42,7 +42,7 @@ export default class extends Generator {
     this.fs.copyTpl(
       '_generators/templates/add-columns-migration.js.ejs',
       this.destinationPath(
-        `src/migrations/${getTimestamp()}-add-${Object.keys(this.typeNamesByModelAttibutes).join(
+        `migrations/${getTimestamp()}-add-${Object.keys(this.typeNamesByModelAttibutes).join(
           '-',
         )}-to-${this.modelNames.kebabCase}.js`,
       ),

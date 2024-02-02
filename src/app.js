@@ -9,13 +9,14 @@ import expressRateLimitMiddleware from 'express-rate-limit';
 import helmetMiddleware from 'helmet';
 import CreateError from 'http-errors';
 import requestLoggerMiddleware from 'pino-http';
+import 'express-async-errors';
 
 import { APP_CONFIG } from '#src/configs/app.js';
 import { REQUEST_LOGGER_CONFIG } from '#src/configs/logger.js';
 import { SWAGGER_CONFIG } from '#src/configs/swagger.js';
-import { logger } from '#src/libs/logger.js';
 import { errorHandlerMiddleware } from '#src/middlewares/error-handler.js';
 import { passportMiddleware } from '#src/middlewares/passport.js';
+import { logger } from '#src/utils/logger.js';
 
 const app = express();
 const server = http.createServer(app);

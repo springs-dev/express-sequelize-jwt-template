@@ -3,9 +3,8 @@ import { writeFileSync } from 'node:fs';
 // eslint-disable-next-line node/no-unpublished-import,import/no-extraneous-dependencies
 import sequelizeErd from 'sequelize-erd';
 
-// DON'T DELETE
 // eslint-disable-next-line no-unused-vars
-import dotenv from '#src/configs/env.js';
+import '#src/configs/env.js';
 import database from '#src/database.js';
 
 /**

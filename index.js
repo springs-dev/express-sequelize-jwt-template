@@ -1,14 +1,13 @@
 /* eslint-disable no-process-exit,no-console, no-unused-vars */
 /* eslint-disable import/order */
-// DON'T DELETE THIS
-import env from '#src/configs/env.js';
+import '#src/configs/env.js';
 /* eslint-enable import/order */
 
 import CreateError from 'http-errors';
 import { ValidationError as SequelizeValidationError } from 'sequelize';
 
 import { APP_CONFIG } from '#src/configs/app.js';
-import { logger } from '#src/libs/logger.js';
+import { logger } from '#src/utils/logger.js';
 
 const EXIT_SUCCESS = 0;
 const EXIT_FAILURE = 1;

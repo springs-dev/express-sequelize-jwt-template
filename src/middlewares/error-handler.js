@@ -28,7 +28,7 @@ const errorHandlers = {
     }
     return {
       key: 'error.database_error',
-      message: 'An internal error occurred. Please try again later.',
+      message: error.message || 'An internal error occurred. Please try again later.',
       statusCode: 500,
     };
   },
@@ -111,7 +111,7 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
 
   return res.status(statusCode).json({
     key: 'error.internal_server_error',
-    message: err.message || 'An internal error occurred. Please try again later.',
+    message: err.message || err || 'An internal error occurred. Please try again later.',
     statusCode,
   });
 };

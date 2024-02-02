@@ -1,5 +1,5 @@
 import express from 'express';<% if (isSecure) { %>
-    import passport from 'passport';<% } %>
+import passport from 'passport';<% } %>
 import { pick } from 'lodash-es';
 
 import <%= modelNames.camelCase %> from '#src/models/<%= modelNames.kebabCase %>.js';
@@ -9,113 +9,113 @@ import { STATUS_SUCCESS } from '#src/configs/constants.js';
 const router = express.Router();
 
 <% if (isSecure) { %>
-    router.all('*', passport.authenticate('jwt', { session: false }));<% } %>
+router.all('*', passport.authenticate('jwt', { session: false }));<% } %>
 
 
 /**
-* @typedef {object} <%= modelNames.camelCase %>Paginated
-* @property {integer} totalCount
-* @property {integer} page
-* @property {array<<%= modelNames.camelCase %>>} data
-*/
+ * @typedef {object} <%= modelNames.camelCase %>Paginated
+ * @property {integer} totalCount
+ * @property {integer} page
+ * @property {array<<%= modelNames.camelCase %>>} data
+ */
 
 /**
-* GET /api/<%= pluralModelNames.kebabCase %>
-* @summary Get <%= pluralModelNames.camelCase %> list
-* @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
-    * @security JWT<% } %>
-* @param {integer} page.query - eg: 1
-* @param {integer} limit.query - eg: 20
-* @return {<%= modelNames.camelCase %>Paginated} 200 - <%= pluralModelNames.camelCase %> paginated list
-*/
+ * GET /api/<%= pluralModelNames.kebabCase %>
+ * @summary Get <%= pluralModelNames.camelCase %> list
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {integer} page.query - eg: 1
+ * @param {integer} limit.query - eg: 20
+ * @return {<%= modelNames.camelCase %>Paginated} 200 - <%= pluralModelNames.camelCase %> paginated list
+ */
 router.get('/', async (req, res) => {
-const { offset, page, limit } = createPageOptions(req)
+    const { offset, page, limit } = createPageOptions(req)
 
-const { count, rows } = await <%= modelNames.camelCase %>.findAndCountAll({
-offset,
-limit,
-});
+    const { count, rows } = await <%= modelNames.camelCase %>.findAndCountAll({
+      offset,
+      limit,
+    });
 
-res.json({
-totalCount: count,
-page,
-data: rows,
-});
+    res.json({
+      totalCount: count,
+      page,
+      data: rows,
+    });
 });
 
 /**
-* @typedef {object} <%= modelNames.camelCase %>CreationData<% for (attributeName in typeNamesByModelAttibutes) { %>
-    * @property {<%- typeNamesByModelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
-*/
+ * @typedef {object} <%= modelNames.camelCase %>CreationData<% for (attributeName in typeNamesByModelAttibutes) { %>
+ * @property {<%- typeNamesByModelAttibutes[attributeName].swagger %>} <%= attributeName %><% } %>
+ */
 
 /**
-* POST /api/<%= pluralModelNames.kebabCase %>
-* @summary Create new <%= modelNames.camelCase %>
-* @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
-    * @security JWT<% } %>
-* @param {<%= modelNames.camelCase %>CreationData} request.body.required - <%= modelNames.camelCase %> data
-* @return {<%= modelNames.camelCase %>} 200 - Created <%= modelNames.camelCase %>
-*/
+ * POST /api/<%= pluralModelNames.kebabCase %>
+ * @summary Create new <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {<%= modelNames.camelCase %>CreationData} request.body.required - <%= modelNames.camelCase %> data
+ * @return {<%= modelNames.camelCase %>} 201 - Created <%= modelNames.camelCase %>
+ */
 router.post('/', async (req, res) => {
-const <%= modelNames.lowerCamelCase %> = await <%= modelNames.camelCase %>.create(
-pick(req.body, [<% for (attributeName in typeNamesByModelAttibutes) { %>'<%= attributeName %>',<% } %>])
-);
+    const <%= modelNames.lowerCamelCase %> = await <%= modelNames.camelCase %>.create(
+      pick(req.body, [<% for (attributeName in typeNamesByModelAttibutes) { %>'<%= attributeName %>',<% } %>])
+    );
 
-res.json(<%= modelNames.lowerCamelCase %>);
+    res.status(201).json(<%= modelNames.lowerCamelCase %>);
 });
 
 
 /**
-* GET /api/<%= pluralModelNames.kebabCase %>/{id}
-* @summary Get single <%= modelNames.camelCase %>
-* @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
-    * @security JWT<% } %>
-* @param {string} id.path.required
-* @return {<%= modelNames.camelCase %>} 200 - <%= modelNames.camelCase %>
-*/
+ * GET /api/<%= pluralModelNames.kebabCase %>/{id}
+ * @summary Get single <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {string} id.path.required
+ * @return {<%= modelNames.camelCase %>} 200 - <%= modelNames.camelCase %>
+ */
 router.get('/:id', async (req, res) => {
-const <%= modelNames.lowerCamelCase %> = await <%= modelNames.camelCase %>.findByPkOrFail(req.params.id);
+  const <%= modelNames.lowerCamelCase %> = await <%= modelNames.camelCase %>.findByPkOrFail(req.params.id);
 
-res.json(<%= modelNames.lowerCamelCase %>);
+  res.json(<%= modelNames.lowerCamelCase %>);
 });
 
 /**
-* PATCH /api/<%= pluralModelNames.kebabCase %>/{id}
-* @summary Update single <%= modelNames.camelCase %>
-* @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
-    * @security JWT<% } %>
-* @param {string} id.path.required
-* @param {<%= modelNames.camelCase %>CreationData} request.body.required
-* @return {<%= modelNames.camelCase %>} 200 - Updated <%= modelNames.camelCase %>
-*/
+ * PATCH /api/<%= pluralModelNames.kebabCase %>/{id}
+ * @summary Update single <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {string} id.path.required
+ * @param {<%= modelNames.camelCase %>CreationData} request.body.required
+ * @return {<%= modelNames.camelCase %>} 200 - Updated <%= modelNames.camelCase %>
+ */
 router.patch('/:id', async (req, res) => {
-const {
-1: [<%= modelNames.lowerCamelCase %>],
-} = await <%= modelNames.camelCase %>.updateOrFail(
-pick(req.body, [<% for (attributeName in typeNamesByModelAttibutes) { %>'<%= attributeName %>',<% } %>]),
-{
-where: { id: req.params.id },
-returning: true,
-}
-);
+   const {
+       1: [<%= modelNames.lowerCamelCase %>],
+     } = await <%= modelNames.camelCase %>.updateOrFail(
+      pick(req.body, [<% for (attributeName in typeNamesByModelAttibutes) { %>'<%= attributeName %>',<% } %>]),
+      {
+        where: { id: req.params.id },
+        returning: true,
+      }
+    );
 
-res.json(<%= modelNames.lowerCamelCase %>);
+    res.json(<%= modelNames.lowerCamelCase %>);
 });
 
 /**
-* DELETE /api/<%= pluralModelNames.kebabCase %>/{id}
-* @summary Delete single <%= modelNames.camelCase %>
-* @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
-    * @security JWT<% } %>
-* @param {string} id.path.required
-* @return {ResponseStatus} 200 - Deleted status
-*/
+ * DELETE /api/<%= pluralModelNames.kebabCase %>/{id}
+ * @summary Delete single <%= modelNames.camelCase %>
+ * @tags <%= pluralModelNames.camelCase %><% if (isSecure) { %>
+ * @security JWT<% } %>
+ * @param {string} id.path.required
+ * @return {ResponseStatus} 200 - Deleted status
+ */
 router.delete('/:id', async (req, res) => {
-await <%= modelNames.camelCase %>.destroyOrFail({
-where: { id: req.params.id },
-});
+    await <%= modelNames.camelCase %>.destroyOrFail({
+      where: { id: req.params.id },
+    });
 
-res.json(STATUS_SUCCESS);
+    res.json(STATUS_SUCCESS);
 });
 
 export default router

@@ -7,7 +7,7 @@ import { Sequelize } from 'sequelize';
 
 import { APP_CONFIG } from '#src/configs/app.js';
 import { SEQUELIZE_CONFIG } from '#src/configs/sequelize.js';
-import { logger } from '#src/libs/logger.js';
+import { logger } from '#src/utils/logger.js';
 
 const MODELS_PATH = './src/models';
 

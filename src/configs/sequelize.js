@@ -1,4 +1,4 @@
-import { logger } from '#src/libs/logger.js';
+import { logger } from '#src/utils/logger.js';
 
 export const SEQUELIZE_CONFIG = {
   // The database dialect. Defaults depend on the dialect used.

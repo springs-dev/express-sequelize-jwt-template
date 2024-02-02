@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
-import { AUTH_SECRET_KEY } from '#src/configs/constants.js';
+import { AUTH_SECRET_KEY } from '#src/configs/auth.js';
 import User from '#src/models/user.js';
 
 /**

@@ -5,11 +5,8 @@
 
 // eslint-disable-next-line node/no-unpublished-import,import/no-extraneous-dependencies
 import Generator from 'yeoman-generator';
-// eslint-disable-next-line node/no-unpublished-import,import/no-extraneous-dependencies,no-unused-vars
 
 import getModelNames from './helpers/get-model-names.js';
-// eslint-disable-next-line no-unused-vars
-// import getModelAttributeNames from './helpers/get-model-attribute-names.js';
 import getTimestamp from './helpers/get-timestamp.js';
 
 /**
@@ -18,10 +15,6 @@ import getTimestamp from './helpers/get-timestamp.js';
  * @extends Generator
  */
 export default class extends Generator {
-  hasValidators = false;
-
-  isSecure = false;
-
   /**
    *
    * Constructor for the generator.
